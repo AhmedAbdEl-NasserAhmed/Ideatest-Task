@@ -4,7 +4,7 @@ const EmployerDashboardPage = ({ children }) => {
   return (
     <div className="p-12 h-screen flex items-center  ">
       <EmployerMainMenu />
-      <div className="grow  h-full rounded-lg p-10">{children}</div>
+      <div className="grow  h-full rounded-lg p-10 over">{children}</div>
     </div>
   );
 };

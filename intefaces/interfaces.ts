@@ -46,7 +46,7 @@ export interface SelectMenuProps {
 }
 
 export interface AddTaskFormValues {
-  image?: File;
+  image?: any;
   title?: string;
   description?: string;
   priority?: string;

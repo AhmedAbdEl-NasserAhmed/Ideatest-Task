@@ -13,7 +13,9 @@ const addTaskFormValidation = yup.object({
 
   priority: yup.string().required("Please select a priority"),
 
-  state: yup.string().required("Please select a state")
+  state: yup.string().required("Please select a state"),
+
+  image: yup.mixed().required("Please select an image for your task ")
 });
 
 export default addTaskFormValidation;

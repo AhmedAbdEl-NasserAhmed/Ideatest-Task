@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import Input from "@/components/Input/Input";
 import Button from "../Button/Button";
@@ -12,12 +12,14 @@ import {
   addTaslSelectStateMenuOptions
 } from "@/constant/constants";
 import addTaskFormValidation from "@/schemas/addTaskFormValidation";
+import UploadTaskImage from "../UploadTaskImage/UploadTaskImage";
 
 const AddTaskForm = () => {
   const {
     register,
     watch,
     handleSubmit,
+    control,
     formState: { errors }
   } = useForm<AddTaskFormValues>({
     resolver: yupResolver(addTaskFormValidation)
@@ -32,8 +34,8 @@ const AddTaskForm = () => {
   function onSubmit() {}
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex">
-      <div className="flex flex-col gap-10 w-full">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex  gap-16">
+      <div className="flex flex-col gap-10 basis-[60%]">
         <Input
           errorMessage={errors["title"] && errors["title"]?.message}
           register={{
@@ -64,10 +66,25 @@ const AddTaskForm = () => {
             ...register("state")
           }}
         />
-        <div>
-          <Button type="submit">Add Task</Button>
-        </div>
+
+        <Button type="submit">Add Task</Button>
       </div>
+      <Controller
+        control={control}
+        name="image"
+        render={({ field: { onChange } }) => (
+          <div className="grow ">
+            <UploadTaskImage
+              errorMessage={
+                typeof errors["image"]?.message === "string"
+                  ? errors["image"].message
+                  : undefined
+              }
+              onChange={onChange}
+            />
+          </div>
+        )}
+      />
     </form>
   );
 };
