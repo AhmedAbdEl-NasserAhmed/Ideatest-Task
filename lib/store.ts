@@ -2,9 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { loginSliceApi } from "./features/api/loginApi";
 
+import { userSlice } from "./slices/userSlice";
+
 export const makeStore = () => {
   return configureStore({
     reducer: {
+      user: userSlice.reducer,
       [loginSliceApi.reducerPath]: loginSliceApi.reducer
     },
 

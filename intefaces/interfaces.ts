@@ -52,3 +52,18 @@ export interface AddTaskFormValues {
   priority?: string;
   state?: string;
 }
+export interface User {
+  id: string;
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UserState {
+  user: User | null;
+  token: string | null;
+  isAuthenticated: boolean;
+}

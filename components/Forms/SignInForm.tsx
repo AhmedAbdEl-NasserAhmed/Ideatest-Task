@@ -3,30 +3,29 @@
 import { useForm } from "react-hook-form";
 
 import Input from "@/components/Input/Input";
-import Button from "../Button/Button";
+import { Storage } from "@/helpers/Storage";
 import { SignInFormValues } from "@/intefaces/interfaces";
-import { yupResolver } from "@hookform/resolvers/yup";
-import signInFormValidation from "@/schemas/signInFormValidation";
 import { useSignInMutation } from "@/lib/features/api/loginApi";
+import { useAppDispatch } from "@/lib/hooks";
+import { assignUser } from "@/lib/slices/userSlice";
+import signInFormValidation from "@/schemas/signInFormValidation";
+import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
+import Button from "../Button/Button";
 
 const SignInForm = () => {
   const [signIn, response] = useSignInMutation();
 
+  const dispatch = useAppDispatch();
+
   const {
     register,
-    watch,
+    reset,
     handleSubmit,
     formState: { errors }
   } = useForm<SignInFormValues>({
     resolver: yupResolver(signInFormValidation)
   });
-
-  const fromData = watch();
-
-  console.log(fromData);
-
-  console.log("errors", errors);
 
   function onSubmit(data: SignInFormValues) {
     signIn({
@@ -35,8 +34,11 @@ const SignInForm = () => {
     })
       .unwrap()
       .then((res) => {
-        console.log("res", res);
         toast.success("welcome again");
+        dispatch(assignUser({ user: res.data, token: res.token }));
+        Storage.addItem("user", res.data);
+        Storage.addItem("token", res.token, false);
+        reset();
       })
       .catch((err) => {
         toast.error(err.data.message);

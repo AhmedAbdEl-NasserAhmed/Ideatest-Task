@@ -1,5 +1,4 @@
 import AddTaskForm from "@/components/Forms/AddTaskForm";
-import React from "react";
 
 const page = () => {
   return (
