@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 import Input from "@/components/Input/Input";
 import Button from "../Button/Button";
+import { emailRegex, passwordRegex } from "@/utils/regex";
 
 type FormValues = {
   name: string;
@@ -54,6 +55,10 @@ const SignUpForm = () => {
             required: {
               value: true,
               message: "Please enter your email"
+            },
+            pattern: {
+              value: emailRegex,
+              message: "Please enter a valid email address."
             }
           })
         }}
@@ -67,6 +72,11 @@ const SignUpForm = () => {
             required: {
               value: true,
               message: "Please enter your password"
+            },
+            pattern: {
+              value: passwordRegex,
+              message:
+                "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character."
             }
           })
         }}
@@ -82,7 +92,9 @@ const SignUpForm = () => {
             required: {
               value: true,
               message: "Please confirm your password"
-            }
+            },
+            validate: (value) =>
+              value === watch("password") || "Passwords do not match"
           })
         }}
         placeholder="Confirm Password"

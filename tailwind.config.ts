@@ -10,7 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         main: "#fafafa",
-        borderLight: "#DCE0E5"
+        borderLight: "#DCE0E5",
+        textMuted: "#808B9A"
       }
     }
   },
