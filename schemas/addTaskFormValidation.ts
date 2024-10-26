@@ -15,6 +15,8 @@ const addTaskFormValidation = yup.object({
 
   state: yup.string().required("Please select a state"),
 
+  assignTo: yup.string().required("Please select an employee"),
+
   image: yup.mixed().required("Please select an image for your task ")
 });
 

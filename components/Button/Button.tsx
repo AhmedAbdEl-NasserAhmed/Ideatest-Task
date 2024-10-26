@@ -6,7 +6,7 @@ const Button = ({ onClick, type, children, disabled }: ButtonProps) => {
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className="rounded-xl text-xl p-6 bg-yellow-400"
+      className="rounded-xl text-xl p-6 w-full bg-yellow-400"
     >
       {children}
     </button>

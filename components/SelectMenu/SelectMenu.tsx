@@ -8,7 +8,8 @@ const SelectMenu = ({
   onChange,
   errorMessage,
   disabled,
-  options
+  options,
+  defaultOption
 }: SelectMenuProps) => {
   return (
     <div className="flex flex-col gap-4">
@@ -20,7 +21,8 @@ const SelectMenu = ({
         {...register}
         className="focus:outline-none px-5 py-4 border-2 border-borderLight rounded-lg w-full text-xl "
       >
-        {options.map((option) => {
+        {defaultOption && <option value="">{defaultOption}</option>}
+        {options?.map((option) => {
           return (
             <option key={option.id} value={option.value}>
               {option.content}

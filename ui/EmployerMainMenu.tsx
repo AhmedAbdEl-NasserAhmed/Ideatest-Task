@@ -27,7 +27,7 @@ const EmployerMainMenu = () => {
     <div
       className={`bg-secondary h-full transition-all duration-500 overflow-hidden  ${
         expandWidth ? "basis-[15%]" : "basis-[10%]"
-      } rounded-xl p-8 flex flex-col justify-between  `}
+      } rounded-xl p-8 flex flex-col gap-16  `}
     >
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold">Menu</h2>
@@ -39,7 +39,7 @@ const EmployerMainMenu = () => {
         </span>
       </div>
 
-      <ul className="flex flex-col gap-16 text-[1.6rem] ">
+      <ul className="flex flex-col gap-16 text-[1.4rem] ">
         <li className="font-bold  flex items-center gap-4 ">
           <span>
             <IoIosAlbums />
@@ -53,10 +53,11 @@ const EmployerMainMenu = () => {
           <Link href="/employer/addtask">Add Task</Link>
         </li>
       </ul>
-
-      <Button onClick={handleLogout} type="button">
-        Sign Out
-      </Button>
+      <div className=" mt-auto">
+        <Button onClick={handleLogout} type="button">
+          Sign Out
+        </Button>
+      </div>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { Storage } from "@/helpers/Storage";
 import axios, { InternalAxiosRequestConfig } from "axios";
 
 interface AxiosProps {
@@ -16,7 +17,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem("userToken");
+    const token = Storage.getItem("token", false);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

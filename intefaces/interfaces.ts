@@ -44,6 +44,7 @@ export interface SelectMenuProps {
     value: string;
     content: string;
   }[];
+  defaultOption?: string;
 }
 
 export interface AddTaskFormValues {
@@ -52,6 +53,7 @@ export interface AddTaskFormValues {
   description?: string;
   priority?: string;
   state?: string;
+  assignTo?: string;
 }
 export interface User {
   id: string;
