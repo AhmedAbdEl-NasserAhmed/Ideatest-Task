@@ -37,8 +37,6 @@ const EditTaskForm = () => {
 
   const [editTask, response] = useEditTaskMutation();
 
-  console.log("singleTask", singleTask);
-
   const {
     register,
     watch,
@@ -52,8 +50,6 @@ const EditTaskForm = () => {
   });
 
   const formData = watch();
-
-  console.log("formData", formData);
 
   useEffect(() => {
     setValue("title", singleTask?.data.title);

@@ -8,26 +8,36 @@ import {
   addTaslSelectStateMenuOptions
 } from "@/constant/constants";
 import { AddTaskFormValues } from "@/intefaces/interfaces";
+import {
+  useEditTaskMutation,
+  useGetSingleTaskQuery
+} from "@/lib/features/api/tasksApi";
 import addTaskFormValidation from "@/schemas/addTaskFormValidation";
+import MiniSpinner from "@/ui/MiniSpinner/MiniSpinner";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import Spinner from "../Spinner/Spinner";
 import UploadTaskImage from "../UploadTaskImage/UploadTaskImage";
-import { useGetAllEmployeesQuery } from "@/lib/features/api/emploeesApi";
-import { useAddTaskMutation } from "@/lib/features/api/tasksApi";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import MiniSpinner from "@/ui/MiniSpinner/MiniSpinner";
 
-const AddTaskForm = () => {
-  const { data } = useGetAllEmployeesQuery("Employees");
+const EmployeeEditTaskForm = () => {
+  const { id } = useParams();
+
+  const { data: singleTask, isLoading } = useGetSingleTaskQuery(id, {
+    skip: !id
+  });
 
   const { push } = useRouter();
 
-  const [addTodo, response] = useAddTaskMutation();
+  const [editTask, response] = useEditTaskMutation();
 
   const {
     register,
+    watch,
+    setValue,
     reset,
     handleSubmit,
     control,
@@ -36,13 +46,17 @@ const AddTaskForm = () => {
     resolver: yupResolver(addTaskFormValidation)
   });
 
-  const usersOption = data?.data.map((user) => {
-    return {
-      id: user._id,
-      value: user._id,
-      content: user.name
-    };
-  });
+  const formData = watch();
+
+  console.log("formData", formData);
+
+  useEffect(() => {
+    setValue("title", singleTask?.data.title);
+    setValue("description", singleTask?.data.description);
+    setValue("priority", singleTask?.data.priority);
+    setValue("state", singleTask?.data.state);
+    setValue("image", singleTask?.data.photo.url);
+  }, [singleTask?.data, setValue]);
 
   function onSubmit(data: AddTaskFormValues) {
     const formData = new FormData();
@@ -53,14 +67,13 @@ const AddTaskForm = () => {
 
     formData.append("title", data.title);
     formData.append("description", data.description);
-    formData.append("assignedTo[]", data.assignTo);
     formData.append("priority", data.priority);
     formData.append("state", data.state);
 
-    addTodo(formData)
+    editTask({ body: formData, id })
       .unwrap()
       .then(() => {
-        toast.success("Task Added Successfully");
+        toast.success("Task Edited Successfully");
         reset();
         push("/employer/alltasks");
       })
@@ -69,11 +82,14 @@ const AddTaskForm = () => {
       });
   }
 
+  if (!singleTask || isLoading) return <Spinner />;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex  gap-16">
       <div className="flex flex-col gap-10 basis-[60%]">
         <Input
-          disabled={response.isLoading}
+          defaultvalue={singleTask?.data.title}
+          disabled={true}
           errorMessage={errors["title"] && errors["title"]?.message}
           register={{
             ...register("title")
@@ -82,7 +98,8 @@ const AddTaskForm = () => {
           type="text"
         />
         <Input
-          disabled={response.isLoading}
+          defaultvalue={singleTask?.data.description}
+          disabled={true}
           errorMessage={errors["description"] && errors["description"]?.message}
           register={{
             ...register("description")
@@ -91,7 +108,8 @@ const AddTaskForm = () => {
           type="text"
         />
         <SelectMenu
-          disabled={response.isLoading}
+          value={singleTask?.data.priority}
+          disabled={true}
           options={addTaslSelectPriorityMenuOptions}
           errorMessage={errors["priority"] && errors["priority"]?.message}
           register={{
@@ -99,6 +117,7 @@ const AddTaskForm = () => {
           }}
         />
         <SelectMenu
+          value={singleTask?.data.state}
           disabled={response.isLoading}
           options={addTaslSelectStateMenuOptions}
           errorMessage={errors["state"] && errors["state"]?.message}
@@ -106,18 +125,9 @@ const AddTaskForm = () => {
             ...register("state")
           }}
         />
-        <SelectMenu
-          disabled={response.isLoading}
-          defaultOption="Please Select an employee"
-          options={usersOption}
-          errorMessage={errors["assignTo"] && errors["assignTo"]?.message}
-          register={{
-            ...register("assignTo")
-          }}
-        />
 
         <Button disabled={response.isLoading} type="submit">
-          {response.isLoading ? <MiniSpinner /> : "Add Task"}
+          {response.isLoading ? <MiniSpinner /> : "Edit Task"}
         </Button>
       </div>
       <Controller
@@ -126,8 +136,8 @@ const AddTaskForm = () => {
         render={({ field: { onChange } }) => (
           <div className="grow ">
             <UploadTaskImage
-              defaultValue=""
-              disabled={response.isLoading}
+              defaultValue={formData?.image}
+              disabled={true}
               errorMessage={
                 typeof errors["image"]?.message === "string"
                   ? errors["image"].message
@@ -142,4 +152,4 @@ const AddTaskForm = () => {
   );
 };
 
-export default AddTaskForm;
+export default EmployeeEditTaskForm;

@@ -22,8 +22,6 @@ const Page = () => {
     state: state || ""
   });
 
-  console.log(data);
-
   return (
     <div>
       <h2 className="font-extrabold text-4xl mb-10">All Tasks</h2>
