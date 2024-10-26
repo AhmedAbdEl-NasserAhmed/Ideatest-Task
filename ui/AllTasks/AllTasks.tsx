@@ -9,10 +9,10 @@ const AllTasks = () => {
 
   if (!data || isLoading) return <Spinner />;
 
-  if (data.length === 0)
+  if (data?.data.length === 0)
     return (
-      <div className="flex items-center justify-center">
-        <h2 className="text-2xl font-bold">Start Add and Assign tasks</h2>
+      <div className="flex h-screen items-start justify-center">
+        <h2 className="text-2xl font-bold">Start Adding and Assigning tasks</h2>
       </div>
     );
 

@@ -10,12 +10,14 @@ const Input = ({
   onChange,
   label,
   errorMessage,
+  defaultvalue,
   disabled
 }: InputProps) => {
   return (
     <div className="flex flex-col gap-4">
       {label && <label className="text-xl ">{label}</label>}
       <input
+        defaultValue={defaultvalue}
         disabled={disabled}
         value={value}
         onChange={onChange}

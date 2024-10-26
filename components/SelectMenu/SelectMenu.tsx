@@ -9,6 +9,7 @@ const SelectMenu = ({
   errorMessage,
   disabled,
   options,
+
   defaultOption
 }: SelectMenuProps) => {
   return (

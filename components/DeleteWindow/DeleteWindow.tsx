@@ -15,7 +15,7 @@ const DeleteWindow = ({
         <button
           disabled={disabled}
           onClick={setShowModal}
-          className={`bg-gray-600 text-white font-medium py-2 px-4 rounded ${
+          className={`bg-gray-600 text-white font-medium py-4 px-6 rounded ${
             disabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
@@ -27,7 +27,7 @@ const DeleteWindow = ({
             if (setShowModal) setShowModal();
             if (onClick) onClick();
           }}
-          className={`bg-red-600 text-white font-medium py-2 px-4 rounded ${
+          className={`bg-red-600 text-white font-medium py-4 px-6 rounded ${
             disabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

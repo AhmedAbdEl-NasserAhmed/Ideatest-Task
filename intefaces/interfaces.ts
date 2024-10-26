@@ -30,6 +30,7 @@ export interface InputProps {
   onChange?: (e) => void;
   errorMessage?: string;
   disabled?: boolean;
+  defaultvalue?: string;
 }
 
 export interface SelectMenuProps {

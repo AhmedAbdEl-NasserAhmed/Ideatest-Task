@@ -37,7 +37,12 @@ function TaskMenuOptions({ task }) {
             View
           </Menus.Button>
 
-          <Menus.Button icon={<HiMiniPencilSquare />}>Edit</Menus.Button>
+          <Menus.Button
+            onClick={() => push(`/employer/edittask/${task._id}`)}
+            icon={<HiMiniPencilSquare />}
+          >
+            Edit
+          </Menus.Button>
 
           <Modal.Open opens="delete">
             <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>

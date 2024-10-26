@@ -2,6 +2,7 @@
 
 import Spinner from "@/components/Spinner/Spinner";
 import { useGetSingleTaskQuery } from "@/lib/features/api/tasksApi";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 
 const TaskDetails = () => {
@@ -23,7 +24,7 @@ const TaskDetails = () => {
   return (
     <div className="h-full w-4/5 mx-auto bg-gray-50 rounded-lg shadow-lg overflow-hidden p-10 mt-12 flex flex-col items-center">
       <div className="flex items-center space-x-8 mb-6">
-        <img
+        <Image
           src={imageUrl}
           alt="Task Image"
           className="w-28 h-28 rounded-xl object-cover shadow-md"

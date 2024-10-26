@@ -8,28 +8,42 @@ import {
   addTaslSelectStateMenuOptions
 } from "@/constant/constants";
 import { AddTaskFormValues } from "@/intefaces/interfaces";
+import { useGetAllEmployeesQuery } from "@/lib/features/api/emploeesApi";
+import {
+  useAddTaskMutation,
+  useGetSingleTaskQuery
+} from "@/lib/features/api/tasksApi";
 import addTaskFormValidation from "@/schemas/addTaskFormValidation";
+import MiniSpinner from "@/ui/MiniSpinner/MiniSpinner";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useParams, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import Spinner from "../Spinner/Spinner";
 import UploadTaskImage from "../UploadTaskImage/UploadTaskImage";
-import { useGetAllEmployeesQuery } from "@/lib/features/api/emploeesApi";
-import { useAddTaskMutation } from "@/lib/features/api/tasksApi";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import MiniSpinner from "@/ui/MiniSpinner/MiniSpinner";
+import { useEffect } from "react";
 
-const AddTaskForm = () => {
+const EditTaskForm = () => {
+  const { id } = useParams();
+
+  const { data: singleTask, isLoading } = useGetSingleTaskQuery(id, {
+    skip: !id
+  });
+
   const { data } = useGetAllEmployeesQuery("Employees");
 
   const { push } = useRouter();
 
   const [addTodo, response] = useAddTaskMutation();
 
+  console.log("singleTask", singleTask);
+
   const {
     register,
-    reset,
     watch,
+    setValue,
+    reset,
     handleSubmit,
     control,
     formState: { errors }
@@ -37,7 +51,18 @@ const AddTaskForm = () => {
     resolver: yupResolver(addTaskFormValidation)
   });
 
-  console.log(watch());
+  const formData = watch();
+
+  console.log("formData", formData);
+
+  useEffect(() => {
+    setValue("title", singleTask?.data.title);
+    setValue("description", singleTask?.data.description);
+    setValue("priority", singleTask?.data.priority);
+    setValue("state", singleTask?.data.state);
+    setValue("assignTo", singleTask?.data.assignedTo[0].name);
+    setValue("image", singleTask?.data.photo.url);
+  }, [singleTask?.data, setValue]);
 
   const usersOption = data?.data.map((user) => {
     return {
@@ -72,10 +97,13 @@ const AddTaskForm = () => {
       });
   }
 
+  if (!singleTask || isLoading) return <Spinner />;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex  gap-16">
       <div className="flex flex-col gap-10 basis-[60%]">
         <Input
+          defaultvalue={singleTask?.data.title}
           disabled={response.isLoading}
           errorMessage={errors["title"] && errors["title"]?.message}
           register={{
@@ -85,6 +113,7 @@ const AddTaskForm = () => {
           type="text"
         />
         <Input
+          defaultvalue={singleTask?.data.description}
           disabled={response.isLoading}
           errorMessage={errors["description"] && errors["description"]?.message}
           register={{
@@ -94,6 +123,7 @@ const AddTaskForm = () => {
           type="text"
         />
         <SelectMenu
+          value={singleTask?.data.priority}
           disabled={response.isLoading}
           options={addTaslSelectPriorityMenuOptions}
           errorMessage={errors["priority"] && errors["priority"]?.message}
@@ -102,6 +132,7 @@ const AddTaskForm = () => {
           }}
         />
         <SelectMenu
+          value={singleTask?.data.state}
           disabled={response.isLoading}
           options={addTaslSelectStateMenuOptions}
           errorMessage={errors["state"] && errors["state"]?.message}
@@ -110,6 +141,7 @@ const AddTaskForm = () => {
           }}
         />
         <SelectMenu
+          value={singleTask?.data.assignedTo[0]._id}
           disabled={response.isLoading}
           defaultOption="Please Select an employee"
           options={usersOption}
@@ -120,7 +152,7 @@ const AddTaskForm = () => {
         />
 
         <Button disabled={response.isLoading} type="submit">
-          {response.isLoading ? <MiniSpinner /> : "Add Task"}
+          {response.isLoading ? <MiniSpinner /> : "Edit Task"}
         </Button>
       </div>
       <Controller
@@ -129,7 +161,7 @@ const AddTaskForm = () => {
         render={({ field: { onChange } }) => (
           <div className="grow ">
             <UploadTaskImage
-              defaultValue=""
+              defaultValue={formData?.image}
               disabled={response.isLoading}
               errorMessage={
                 typeof errors["image"]?.message === "string"
@@ -145,4 +177,4 @@ const AddTaskForm = () => {
   );
 };
 
-export default AddTaskForm;
+export default EditTaskForm;
