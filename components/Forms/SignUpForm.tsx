@@ -1,20 +1,12 @@
 "use client";
-
 import { useForm } from "react-hook-form";
-
 import Input from "@/components/Input/Input";
-import Button from "../Button/Button";
-import { emailRegex, passwordRegex } from "@/utils/regex";
-import SelectMenu from "../SelectMenu/SelectMenu";
 import { useSingUpMutation } from "@/lib/features/api/loginApi";
-
-type FormValues = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  role: string;
-};
+import signUpValidations from "@/schemas/signUpValidations";
+import { FormValues } from "@/types/signUpFormValues";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Button from "../Button/Button";
+import SelectMenu from "../SelectMenu/SelectMenu";
 
 const SignUpForm = () => {
   const {
@@ -22,7 +14,9 @@ const SignUpForm = () => {
     watch,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    resolver: yupResolver(signUpValidations)
+  });
 
   const fromData = watch();
 
@@ -55,16 +49,7 @@ const SignUpForm = () => {
         disabled={response.isLoading}
         errorMessage={errors["name"] && errors["name"]?.message}
         register={{
-          ...register("name", {
-            required: {
-              value: true,
-              message: "Please enter your name "
-            },
-            minLength: {
-              value: 6,
-              message: "Please enter name not less than 6 character"
-            }
-          })
+          ...register("name")
         }}
         placeholder="Name"
         type="text"
@@ -73,16 +58,7 @@ const SignUpForm = () => {
         disabled={response.isLoading}
         errorMessage={errors["email"] && errors["email"]?.message}
         register={{
-          ...register("email", {
-            required: {
-              value: true,
-              message: "Please enter your email"
-            },
-            pattern: {
-              value: emailRegex,
-              message: "Please enter a valid email address."
-            }
-          })
+          ...register("email")
         }}
         placeholder="example@user.com"
         type="text"
@@ -91,17 +67,7 @@ const SignUpForm = () => {
         disabled={response.isLoading}
         errorMessage={errors["password"] && errors["password"]?.message}
         register={{
-          ...register("password", {
-            required: {
-              value: true,
-              message: "Please enter your password"
-            },
-            pattern: {
-              value: passwordRegex,
-              message:
-                "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character."
-            }
-          })
+          ...register("password")
         }}
         placeholder="Password"
         type="password"
@@ -112,14 +78,7 @@ const SignUpForm = () => {
           errors["confirmPassword"] && errors["confirmPassword"]?.message
         }
         register={{
-          ...register("confirmPassword", {
-            required: {
-              value: true,
-              message: "Please confirm your password"
-            },
-            validate: (value) =>
-              value === watch("password") || "Passwords do not match"
-          })
+          ...register("confirmPassword")
         }}
         placeholder="Confirm Password"
         type="password"
@@ -128,12 +87,7 @@ const SignUpForm = () => {
         disabled={response.isLoading}
         errorMessage={errors["role"] && errors["role"]?.message}
         register={{
-          ...register("role", {
-            required: {
-              value: true,
-              message: "Please select your role "
-            }
-          })
+          ...register("role")
         }}
       />
       <Button disabled={response.isLoading} type="submit">
