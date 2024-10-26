@@ -16,8 +16,14 @@ export const todosApi = createApi({
           "Content-Type": "multipart/form-data"
         }
       })
+    }),
+    getAllTasks: builder.query({
+      query: () => ({
+        url: "toDos",
+        method: "Get"
+      })
     })
   })
 });
 
-export const { useAddTodoMutation } = todosApi;
+export const { useAddTodoMutation, useGetAllTasksQuery } = todosApi;

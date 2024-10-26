@@ -4,7 +4,8 @@ import ProtectedRoute from "@/ui/ProtectedRoute";
 
 const EmployerDashboardPage = ({ children }) => {
   return (
-    <ProtectedRoute>
+    // <ProtectedRoute>
+    // </ProtectedRoute>
       <div>
         <Nav />
         <div className="p-8 h-[calc(100vh-7rem)] flex items-center  ">
@@ -12,7 +13,6 @@ const EmployerDashboardPage = ({ children }) => {
           <div className="grow  h-full rounded-lg p-10 over">{children}</div>
         </div>
       </div>
-    </ProtectedRoute>
   );
 };
 
