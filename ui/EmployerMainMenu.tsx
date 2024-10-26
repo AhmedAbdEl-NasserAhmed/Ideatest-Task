@@ -6,9 +6,22 @@ import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { FaAlignJustify, FaClipboardList } from "react-icons/fa";
 import { IoIosAlbums } from "react-icons/io";
+import { useAppDispatch } from "@/lib/hooks";
+import { logout } from "@/lib/slices/userSlice";
+import { Storage } from "@/helpers/Storage";
+import toast from "react-hot-toast";
 
 const EmployerMainMenu = () => {
   const [expandWidth, setExpandWidth] = useState<boolean>(true);
+
+  const dispatch = useAppDispatch();
+
+  function handleLogout() {
+    dispatch(logout());
+    Storage.removeItem("user");
+    Storage.removeItem("token");
+    toast.success("See you soon");
+  }
 
   return (
     <div
@@ -41,7 +54,9 @@ const EmployerMainMenu = () => {
         </li>
       </ul>
 
-      <Button type="button">Sign Out</Button>
+      <Button onClick={handleLogout} type="button">
+        Sign Out
+      </Button>
     </div>
   );
 };

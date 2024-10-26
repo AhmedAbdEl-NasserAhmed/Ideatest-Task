@@ -32,7 +32,8 @@ export default function RootLayout({
               duration: 2000,
               style: {
                 padding: "16px",
-                color: "#713200"
+                color: "#713200",
+                fontSize: "1rem"
               },
               success: {
                 style: {

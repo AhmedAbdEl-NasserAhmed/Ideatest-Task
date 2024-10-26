@@ -17,6 +17,7 @@ export interface ButtonProps {
   type: "submit" | "button";
   disabled?: boolean;
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
 export interface InputProps {
