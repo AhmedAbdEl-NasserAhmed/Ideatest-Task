@@ -7,6 +7,7 @@ interface Props {
   value?: string;
   onChange?: (e) => void;
   errorMessage?: string;
+  disabled: boolean;
 }
 
 const SelectMenu = ({
@@ -15,11 +16,13 @@ const SelectMenu = ({
   register,
   value,
   onChange,
-  errorMessage
+  errorMessage,
+  disabled
 }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <select
+        disabled={disabled}
         value={value}
         onChange={onChange}
         name={name}

@@ -10,6 +10,7 @@ interface Props {
   label?: string;
   onChange?: (e) => void;
   errorMessage?: string;
+  disabled?: boolean;
 }
 
 const Input = ({
@@ -20,12 +21,14 @@ const Input = ({
   value,
   onChange,
   label,
-  errorMessage
+  errorMessage,
+  disabled
 }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       {label && <label className="text-xl ">{label}</label>}
       <input
+        disabled={disabled}
         value={value}
         onChange={onChange}
         name={name}

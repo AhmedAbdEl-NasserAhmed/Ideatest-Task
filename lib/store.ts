@@ -1,8 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { loginSliceApi } from "./features/api/loginApi";
+
 export const makeStore = () => {
   return configureStore({
-    reducer: {}
+    reducer: {
+      [loginSliceApi.reducerPath]: loginSliceApi.reducer
+    },
+
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(loginSliceApi.middleware)
   });
 };
 

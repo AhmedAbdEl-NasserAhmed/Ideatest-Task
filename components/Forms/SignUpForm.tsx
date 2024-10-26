@@ -6,6 +6,7 @@ import Input from "@/components/Input/Input";
 import Button from "../Button/Button";
 import { emailRegex, passwordRegex } from "@/utils/regex";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import { useSingUpMutation } from "@/lib/features/api/loginApi";
 
 type FormValues = {
   name: string;
@@ -29,11 +30,29 @@ const SignUpForm = () => {
 
   console.log("errors", errors);
 
-  function onSubmit() {}
+  const [singUp, response] = useSingUpMutation();
+
+  function onSubmit(data: FormValues) {
+    singUp({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+      role: data.role
+    })
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <Input
+        disabled={response.isLoading}
         errorMessage={errors["name"] && errors["name"]?.message}
         register={{
           ...register("name", {
@@ -51,6 +70,7 @@ const SignUpForm = () => {
         type="text"
       />
       <Input
+        disabled={response.isLoading}
         errorMessage={errors["email"] && errors["email"]?.message}
         register={{
           ...register("email", {
@@ -68,6 +88,7 @@ const SignUpForm = () => {
         type="text"
       />
       <Input
+        disabled={response.isLoading}
         errorMessage={errors["password"] && errors["password"]?.message}
         register={{
           ...register("password", {
@@ -86,6 +107,7 @@ const SignUpForm = () => {
         type="password"
       />
       <Input
+        disabled={response.isLoading}
         errorMessage={
           errors["confirmPassword"] && errors["confirmPassword"]?.message
         }
@@ -103,6 +125,7 @@ const SignUpForm = () => {
         type="password"
       />
       <SelectMenu
+        disabled={response.isLoading}
         errorMessage={errors["role"] && errors["role"]?.message}
         register={{
           ...register("role", {
@@ -113,7 +136,9 @@ const SignUpForm = () => {
           })
         }}
       />
-      <Button type="submit">Sign Up</Button>
+      <Button disabled={response.isLoading} type="submit">
+        Sign Up
+      </Button>
     </form>
   );
 };

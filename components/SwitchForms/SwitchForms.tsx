@@ -32,7 +32,7 @@ const SwitchForms = () => {
       </div>
 
       <button
-        className="text-[1.4rem] mt-auto font-bold text-center z-20"
+        className="text-[1.2rem] mt-auto font-bold text-center z-20"
         type="button"
         onClick={() => setSignIn((value) => !value)}
       >
