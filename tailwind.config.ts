@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         main: "#fafafa",
+        secondary: "#f4f4f4",
         borderLight: "#DCE0E5",
         textMuted: "#808B9A"
       }
