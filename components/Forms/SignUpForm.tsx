@@ -18,12 +18,6 @@ const SignUpForm = () => {
     resolver: yupResolver(signUpValidations)
   });
 
-  const fromData = watch();
-
-  console.log(fromData);
-
-  console.log("errors", errors);
-
   const [singUp, response] = useSingUpMutation();
 
   function onSubmit(data: SignUpFormValues) {
