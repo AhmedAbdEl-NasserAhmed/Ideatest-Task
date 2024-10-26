@@ -4,7 +4,7 @@ interface AxiosProps {
   url?: string;
   method?: string;
   body?: any;
-  params?: any;
+  params?: string;
 }
 
 const axiosInstance = axios.create({

@@ -7,8 +7,12 @@ import Button from "../Button/Button";
 import { SignInFormValues } from "@/intefaces/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import signInFormValidation from "@/schemas/signInFormValidation";
+import { useSignInMutation } from "@/lib/features/api/loginApi";
+import toast from "react-hot-toast";
 
 const SignInForm = () => {
+  const [signIn, response] = useSignInMutation();
+
   const {
     register,
     watch,
@@ -24,11 +28,25 @@ const SignInForm = () => {
 
   console.log("errors", errors);
 
-  function onSubmit() {}
+  function onSubmit(data: SignInFormValues) {
+    signIn({
+      email: data.email,
+      password: data.password
+    })
+      .unwrap()
+      .then((res) => {
+        console.log("res", res);
+        toast.success("welcome again");
+      })
+      .catch((err) => {
+        toast.error(err.data.message);
+      });
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <Input
+        disabled={response.isLoading}
         errorMessage={errors["email"] && errors["email"]?.message}
         register={{
           ...register("email")
@@ -37,6 +55,7 @@ const SignInForm = () => {
         type="text"
       />
       <Input
+        disabled={response.isLoading}
         errorMessage={errors["password"] && errors["password"]?.message}
         register={{
           ...register("password")
@@ -44,7 +63,9 @@ const SignInForm = () => {
         placeholder="Password"
         type="password"
       />
-      <Button type="submit">Sign In</Button>
+      <Button disabled={response.isLoading} type="submit">
+        Sign In
+      </Button>
     </form>
   );
 };

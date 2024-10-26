@@ -12,8 +12,15 @@ export const loginSliceApi = createApi({
         method: "POST",
         body: newPost
       })
+    }),
+    signIn: builder.mutation({
+      query: (newPost) => ({
+        url: "auth/login",
+        method: "POST",
+        body: newPost
+      })
     })
   })
 });
 
-export const { useSingUpMutation } = loginSliceApi;
+export const { useSingUpMutation, useSignInMutation } = loginSliceApi;

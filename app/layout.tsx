@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 import StoreProvider from "./StoreProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,6 +27,27 @@ export default function RootLayout({
           className={`${inter.className} antialiased`}
         >
           {children}
+          <Toaster
+            toastOptions={{
+              duration: 2000,
+              style: {
+                padding: "16px",
+                color: "#713200"
+              },
+              success: {
+                style: {
+                  color: "green",
+                  background: "white"
+                }
+              },
+              error: {
+                style: {
+                  color: "red",
+                  background: "white"
+                }
+              }
+            }}
+          />
         </body>
       </html>
     </StoreProvider>

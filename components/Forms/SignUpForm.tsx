@@ -8,11 +8,12 @@ import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
 import { SignUpFormValues } from "@/intefaces/interfaces";
 import { signUpFormSelectMenuOptions } from "@/constant/constants";
+import toast from "react-hot-toast";
 
-const SignUpForm = () => {
+const SignUpForm = ({ setSignIn }) => {
   const {
     register,
-    watch,
+    reset,
     handleSubmit,
     formState: { errors }
   } = useForm<SignUpFormValues>({
@@ -30,11 +31,13 @@ const SignUpForm = () => {
       role: data.role
     })
       .unwrap()
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        reset();
+        toast.success("Your email is created successfully");
+        setSignIn(true);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.data.message);
       });
   }
 

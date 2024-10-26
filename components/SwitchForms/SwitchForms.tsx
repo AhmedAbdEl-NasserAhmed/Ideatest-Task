@@ -19,7 +19,7 @@ const SwitchForms = () => {
           }  w-full `}
         >
           <h2 className=" mb-4 text-[3rem] font-bold">Sign Up</h2>
-          <SignUpForm />
+          <SignUpForm setSignIn={setSignIn} />
         </div>
 
         <div
