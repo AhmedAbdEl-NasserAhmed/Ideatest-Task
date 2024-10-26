@@ -1,6 +1,6 @@
 export const signUpFormSelectMenuOptions = [
   { id: "1", value: "", content: "Please choose your role ?" },
-  { id: "2", value: "employer", content: "Employer" },
+  { id: "2", value: "leader", content: "Leader" },
   { id: "3", value: "employee", content: "Employee" }
 ];
 

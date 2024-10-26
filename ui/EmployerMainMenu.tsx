@@ -4,8 +4,7 @@ import { useState } from "react";
 
 import Button from "@/components/Button/Button";
 import Link from "next/link";
-import { FaAlignJustify } from "react-icons/fa";
-import { HiAnnotation, HiCube } from "react-icons/hi";
+import { FaAlignJustify, FaClipboardList } from "react-icons/fa";
 import { IoIosAlbums } from "react-icons/io";
 
 const EmployerMainMenu = () => {
@@ -13,8 +12,8 @@ const EmployerMainMenu = () => {
 
   return (
     <div
-      className={`bg-secondary h-full transition-all duration-500  ${
-        expandWidth ? "basis-[20%]" : "basis-[10%]"
+      className={`bg-secondary h-full transition-all duration-500 overflow-hidden  ${
+        expandWidth ? "basis-[15%]" : "basis-[10%]"
       } rounded-xl p-8 flex flex-col justify-between  `}
     >
       <div className="flex items-center justify-between">
@@ -27,14 +26,7 @@ const EmployerMainMenu = () => {
         </span>
       </div>
 
-      <ul className="flex flex-col gap-20 text-[1.6rem] ">
-        <li className="font-bold  flex items-center gap-4 ">
-          <span>
-            <HiCube />
-          </span>
-          <Link href="/employer/dashboard">Dashbaord</Link>
-        </li>
-
+      <ul className="flex flex-col gap-16 text-[1.6rem] ">
         <li className="font-bold  flex items-center gap-4 ">
           <span>
             <IoIosAlbums />
@@ -43,7 +35,7 @@ const EmployerMainMenu = () => {
         </li>
         <li className="font-bold  flex items-center gap-4 ">
           <span>
-            <HiAnnotation />
+            <FaClipboardList />
           </span>
           <Link href="/employer/addtask">Add Task</Link>
         </li>
