@@ -37,5 +37,18 @@ export interface SelectMenuProps {
   value?: string;
   onChange?: (e) => void;
   errorMessage?: string;
-  disabled: boolean;
+  disabled?: boolean;
+  options: {
+    id: string;
+    value: string;
+    content: string;
+  }[];
+}
+
+export interface AddTaskFormValues {
+  image?: File;
+  title?: string;
+  description?: string;
+  priority?: string;
+  state?: string;
 }

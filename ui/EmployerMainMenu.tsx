@@ -25,7 +25,7 @@ const EmployerMainMenu = () => {
       </div>
       <ul>
         <li className="font-bold text-xl">
-          <Link href="/employer/dashboard/addtask">Add Task</Link>
+          <Link href="/employer/addtask">Add Task</Link>
         </li>
       </ul>
     </div>

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
 import { SignUpFormValues } from "@/intefaces/interfaces";
+import { signUpFormSelectMenuOptions } from "@/constant/constants";
 
 const SignUpForm = () => {
   const {
@@ -78,6 +79,7 @@ const SignUpForm = () => {
         type="password"
       />
       <SelectMenu
+        options={signUpFormSelectMenuOptions}
         disabled={response.isLoading}
         errorMessage={errors["role"] && errors["role"]?.message}
         register={{

@@ -3,12 +3,12 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const SelectMenu = ({
   name,
-
   register,
   value,
   onChange,
   errorMessage,
-  disabled
+  disabled,
+  options
 }: SelectMenuProps) => {
   return (
     <div className="flex flex-col gap-4">
@@ -18,11 +18,15 @@ const SelectMenu = ({
         onChange={onChange}
         name={name}
         {...register}
-        className="focus:outline-none  px-5 py-4 border-2 border-borderLight rounded-lg w-full text-xl "
+        className="focus:outline-none px-5 py-4 border-2 border-borderLight rounded-lg w-full text-xl "
       >
-        <option value="">Please choose your role</option>
-        <option value="employer">Employer</option>
-        <option value="employee">Employee</option>
+        {options.map((option) => {
+          return (
+            <option key={option.id} value={option.value}>
+              {option.content}
+            </option>
+          );
+        })}
       </select>
       <ErrorMessage message={errorMessage} />
     </div>
