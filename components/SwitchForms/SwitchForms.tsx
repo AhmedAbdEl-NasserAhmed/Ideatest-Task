@@ -8,7 +8,7 @@ const SwitchForms = () => {
   const [signIn, setSignIn] = useState<boolean>(true);
 
   return (
-    <div className="relative w-[45rem] h-3/4 m-auto flex justify-center items-center ">
+    <div className="relative w-[45rem] h-[90%] m-auto flex justify-center items-center ">
       <div
         className={` top-1/2 left-1/2 absolute transition duration-700 ${
           signIn

@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import Input from "@/components/Input/Input";
 import Button from "../Button/Button";
 import { emailRegex, passwordRegex } from "@/utils/regex";
+import SelectMenu from "../SelectMenu/SelectMenu";
 
 type FormValues = {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
+  role: string;
 };
 
 const SignUpForm = () => {
@@ -99,6 +101,17 @@ const SignUpForm = () => {
         }}
         placeholder="Confirm Password"
         type="password"
+      />
+      <SelectMenu
+        errorMessage={errors["role"] && errors["role"]?.message}
+        register={{
+          ...register("role", {
+            required: {
+              value: true,
+              message: "Please select your role "
+            }
+          })
+        }}
       />
       <Button type="submit">Sign Up</Button>
     </form>
