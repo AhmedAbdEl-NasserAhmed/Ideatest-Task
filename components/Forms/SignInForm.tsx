@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 
 import Input from "@/components/Input/Input";
-import { Storage } from "@/helpers/Storage";
+import { Storage } from "@/lib/helpers/Storage";
 import { SignInFormValues } from "@/intefaces/interfaces";
 import { useSignInMutation } from "@/lib/features/api/loginApi";
 import { useAppDispatch } from "@/lib/hooks";

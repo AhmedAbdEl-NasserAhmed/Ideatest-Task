@@ -8,9 +8,10 @@ import { FieldError } from "react-hook-form";
 interface Props {
   onChange?: (e) => void;
   errorMessage: string | FieldError;
+  disabled: boolean;
 }
 
-const UploadTaskImage = ({ onChange, errorMessage }: Props) => {
+const UploadTaskImage = ({ disabled, onChange, errorMessage }: Props) => {
   const [imageSrc, setImageSrc] = useState(null);
 
   const fileInputRef = useRef<HTMLInputElement>();
@@ -38,10 +39,11 @@ const UploadTaskImage = ({ onChange, errorMessage }: Props) => {
         className="flex justify-center items-center relative h-full w-full rounded-lg border-2 border-borderLight border-solid cursor-pointer"
       >
         {imageSrc && <Image src={imageSrc} alt="profile" fill />}
-        <span className="text-4xl">+</span>
+        <span className="text-5xl">+</span>
       </div>
 
       <input
+        disabled={disabled}
         style={{ display: "none" }}
         ref={fileInputRef}
         type="file"

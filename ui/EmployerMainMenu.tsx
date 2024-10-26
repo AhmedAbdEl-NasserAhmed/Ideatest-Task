@@ -8,7 +8,7 @@ import { FaAlignJustify, FaClipboardList } from "react-icons/fa";
 import { IoIosAlbums } from "react-icons/io";
 import { useAppDispatch } from "@/lib/hooks";
 import { logout } from "@/lib/slices/userSlice";
-import { Storage } from "@/helpers/Storage";
+import { Storage } from "@/lib/helpers/Storage";
 import toast from "react-hot-toast";
 
 const EmployerMainMenu = () => {
@@ -44,7 +44,7 @@ const EmployerMainMenu = () => {
           <span>
             <IoIosAlbums />
           </span>
-          <Link href="/employer/addtask">All Tasks</Link>
+          <Link href="/employer/alltasks">All Tasks</Link>
         </li>
         <li className="font-bold  flex items-center gap-4 ">
           <span>

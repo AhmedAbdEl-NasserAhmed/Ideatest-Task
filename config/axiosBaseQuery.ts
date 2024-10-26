@@ -1,4 +1,4 @@
-import { Storage } from "@/helpers/Storage";
+import { Storage } from "@/lib/helpers/Storage";
 import axios, { InternalAxiosRequestConfig } from "axios";
 
 interface AxiosProps {
@@ -6,6 +6,7 @@ interface AxiosProps {
   method?: string;
   body?: any;
   params?: string;
+  headers?: Record<string, string>; // Add this line
 }
 
 const axiosInstance = axios.create({
@@ -29,14 +30,20 @@ axiosInstance.interceptors.request.use(
 );
 
 const axiosBaseQuery = () => {
-  return async ({ url, method, body, params }: AxiosProps) => {
+  return async ({ url, method, body, params, headers }: AxiosProps) => {
+    // Update this line
     try {
-      const result = await axiosInstance({
+      const config = {
         url,
         method,
         data: body,
-        params
-      });
+        params,
+        headers: {
+          ...headers
+        }
+      };
+
+      const result = await axiosInstance(config);
       return { data: result.data };
     } catch (err: any) {
       return {

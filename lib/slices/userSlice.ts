@@ -1,4 +1,4 @@
-import { Storage } from "@/helpers/Storage";
+import { Storage } from "@/lib/helpers/Storage";
 import { createSlice } from "@reduxjs/toolkit";
 
 let user = null;
