@@ -24,7 +24,7 @@ const SelectMenu = ({
         onChange={onChange}
         name={name}
         {...register}
-        className="focus:outline-none placeholder:text-lg px-5 py-4 border-2 border-borderLight rounded-lg w-full text-xl "
+        className="focus:outline-none  px-5 py-4 border-2 border-borderLight rounded-lg w-full text-xl "
       >
         <option value="">Please choose your role</option>
         <option value="employer">Employer</option>
