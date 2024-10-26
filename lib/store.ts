@@ -4,7 +4,7 @@ import { loginSliceApi } from "./features/api/loginApi";
 
 import { userSlice } from "./slices/userSlice";
 import { employeesApi } from "./features/api/emploeesApi";
-import { todosApi } from "./features/api/todosApi";
+import { tasksApi } from "./features/api/tasksApi";
 
 export const makeStore = () => {
   return configureStore({
@@ -12,14 +12,14 @@ export const makeStore = () => {
       user: userSlice.reducer,
       [loginSliceApi.reducerPath]: loginSliceApi.reducer,
       [employeesApi.reducerPath]: employeesApi.reducer,
-      [todosApi.reducerPath]: todosApi.reducer
+      [tasksApi.reducerPath]: tasksApi.reducer
     },
 
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         loginSliceApi.middleware,
         employeesApi.middleware,
-        todosApi.middleware
+        tasksApi.middleware
       )
   });
 };

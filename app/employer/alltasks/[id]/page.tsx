@@ -1,65 +1,77 @@
-const TaskDetails = ({ task }) => {
+"use client";
 
+import Spinner from "@/components/Spinner/Spinner";
+import { useGetSingleTaskQuery } from "@/lib/features/api/tasksApi";
+import { useParams } from "next/navigation";
 
+const TaskDetails = () => {
+  const { id } = useParams();
+  const { data, isLoading } = useGetSingleTaskQuery(id);
 
-  
+  if (isLoading || !data) return <Spinner />;
+
+  const {
+    _id,
+    title,
+    description,
+    assignedTo,
+    priority,
+    state,
+    photo: { url: imageUrl }
+  } = data.data;
+
   return (
-    <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden p-6 mt-4">
-      <div className="flex items-center space-x-4">
+    <div className="h-full w-4/5 mx-auto bg-gray-50 rounded-lg shadow-lg overflow-hidden p-10 mt-12 flex flex-col items-center">
+      <div className="flex items-center space-x-8 mb-6">
         <img
-          src={task.photo.url}
+          src={imageUrl}
           alt="Task Image"
-          className="w-16 h-16 rounded-md object-cover"
+          className="w-28 h-28 rounded-xl object-cover shadow-md"
         />
         <div>
-          <h2 className="text-xl font-semibold text-gray-800">{task.title}</h2>
-          <p className="text-gray-500">Task ID: {task._id}</p>
+          <h2 className="text-3xl font-bold text-gray-900">{title}</h2>
+          <p className="text-lg text-gray-500 mt-2">Task ID: {_id}</p>
         </div>
       </div>
 
-      <p className="mt-4 text-gray-600">{task.description}</p>
+      <p className="mt-6 text-lg text-gray-700 leading-relaxed max-w-md text-center">
+        {description}
+      </p>
 
-      <div className="mt-4">
+      <div className="mt-8 w-full max-w-md space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-700">Priority:</span>
+          <span className="text-lg font-semibold text-gray-800">Priority:</span>
           <span
-            className={`px-2 py-1 rounded-md text-sm font-medium ${
-              task.priority === "high"
+            className={`px-4 py-2 rounded-full text-lg font-semibold ${
+              priority === "high"
                 ? "bg-red-100 text-red-600"
-                : task.priority === "medium"
+                : priority === "medium"
                 ? "bg-yellow-100 text-yellow-600"
                 : "bg-green-100 text-green-600"
             }`}
           >
-            {task.priority}
+            {priority}
           </span>
         </div>
-        <div className="flex items-center justify-between mt-2">
-          <span className="text-sm font-medium text-gray-700">State:</span>
+        <div className="flex items-center justify-between mt-4">
+          <span className="text-lg font-semibold text-gray-800">State:</span>
           <span
-            className={`px-2 py-1 rounded-md text-sm font-medium ${
-              task.state === "done"
+            className={`px-4 py-2 rounded-full text-lg font-semibold ${
+              state === "done"
                 ? "bg-green-100 text-green-600"
                 : "bg-gray-100 text-gray-600"
             }`}
           >
-            {task.state}
+            {state}
           </span>
         </div>
       </div>
 
-      <div className="mt-4">
-        <h3 className="text-sm font-medium text-gray-700">Assigned To:</h3>
-        <ul className="mt-2 space-y-1">
-          {task.assignedTo.map((assignee, index) => (
-            <li key={index} className="text-gray-600 text-sm">
-              {assignee}
-            </li>
-          ))}
-        </ul>
+      <div className="mt-10 w-full max-w-md flex items-center justify-between ">
+        <h3 className="text-lg font-semibold text-gray-800">Assigned To:</h3>
+        <p className=" text-lg text-gray-600">{assignedTo[0].name}</p>
       </div>
     </div>
   );
 };
-
 export default TaskDetails;

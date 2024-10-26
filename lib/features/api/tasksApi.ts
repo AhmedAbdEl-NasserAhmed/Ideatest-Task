@@ -2,10 +2,10 @@ import axiosBaseQuery from "@/config/axiosBaseQuery";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-export const todosApi = createApi({
-  reducerPath: "todosApi",
+export const tasksApi = createApi({
+  reducerPath: "tasksApi",
+  tagTypes: ["Tasks"],
   baseQuery: axiosBaseQuery(),
-
   endpoints: (builder) => ({
     addTodo: builder.mutation({
       query: (newPost) => ({
@@ -14,16 +14,30 @@ export const todosApi = createApi({
         body: newPost,
         headers: {
           "Content-Type": "multipart/form-data"
-        }
+        },
+        invalidatesTags: ["Tasks"]
       })
     }),
     getAllTasks: builder.query({
       query: () => ({
         url: "toDos",
         method: "Get"
-      })
+      }),
+      providesTags: ["Tasks"]
+    }),
+
+    getSingleTask: builder.query({
+      query: (id) => ({
+        url: `toDos/${id}`,
+        method: "Get"
+      }),
+      providesTags: ["Tasks"]
     })
   })
 });
 
-export const { useAddTodoMutation, useGetAllTasksQuery } = todosApi;
+export const {
+  useAddTodoMutation,
+  useGetAllTasksQuery,
+  useGetSingleTaskQuery
+} = tasksApi;

@@ -1,5 +1,4 @@
 import AddTaskForm from "@/components/Forms/AddTaskForm";
-import { useGetAllTasksQuery } from "@/lib/features/api/todosApi";
 
 const page = () => {
   return (

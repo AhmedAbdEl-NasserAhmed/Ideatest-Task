@@ -14,12 +14,12 @@ import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
 import UploadTaskImage from "../UploadTaskImage/UploadTaskImage";
 import { useGetAllEmployeesQuery } from "@/lib/features/api/emploeesApi";
-import { useAddTodoMutation } from "@/lib/features/api/todosApi";
+import { useAddTodoMutation } from "@/lib/features/api/tasksApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const AddTaskForm = () => {
-  const { data } = useGetAllEmployeesQuery("employees");
+  const { data } = useGetAllEmployeesQuery("Employees");
 
   const { push } = useRouter();
 

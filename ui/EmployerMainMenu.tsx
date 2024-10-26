@@ -25,7 +25,7 @@ const EmployerMainMenu = () => {
 
   return (
     <div
-      className={`bg-secondary h-full transition-all duration-500 overflow-hidden  ${
+      className={`bg-secondary h-full transition-all duration-500   ${
         expandWidth ? "basis-[15%]" : "basis-[10%]"
       } rounded-xl p-8 flex flex-col gap-16  `}
     >

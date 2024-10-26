@@ -10,7 +10,7 @@ const EmployerDashboardPage = ({ children }) => {
         <Nav />
         <div className="p-8 h-[calc(100vh-7rem)] flex items-center  ">
           <EmployerMainMenu />
-          <div className="grow  h-full rounded-lg p-10 over">{children}</div>
+          <div className="grow  h-full rounded-lg p-10 overflow-y-scroll">{children}</div>
         </div>
       </div>
   );
