@@ -1,4 +1,4 @@
-import axiosBaseQuery from "@/confiq/axiosBaseQuery";
+import axiosBaseQuery from "@/config/axiosBaseQuery";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 

@@ -6,7 +6,7 @@ import signUpValidations from "@/schemas/signUpFormValidations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
-import { SignUpFormValues } from "@/types/interfaces";
+import { SignUpFormValues } from "@/intefaces/interfaces";
 
 const SignUpForm = () => {
   const {

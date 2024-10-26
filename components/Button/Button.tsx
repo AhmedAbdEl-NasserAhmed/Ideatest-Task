@@ -1,4 +1,4 @@
-import { ButtonProps } from "@/types/interfaces";
+import { ButtonProps } from "@/intefaces/interfaces";
 
 const Button = ({ type, children, disabled }: ButtonProps) => {
   return (

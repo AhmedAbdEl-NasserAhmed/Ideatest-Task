@@ -14,7 +14,6 @@ const axiosInstance = axios.create({
   }
 });
 
-// Add a request interceptor
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem("userToken");
@@ -28,7 +27,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Create the base query function
 const axiosBaseQuery = () => {
   return async ({ url, method, body, params }: AxiosProps) => {
     try {

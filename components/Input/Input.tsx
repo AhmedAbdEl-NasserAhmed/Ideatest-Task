@@ -1,4 +1,4 @@
-import { InputProps } from "@/types/interfaces";
+import { InputProps } from "@/intefaces/interfaces";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const Input = ({
@@ -25,7 +25,7 @@ const Input = ({
         className="focus:outline-none placeholder:text-lg px-5 py-4 border-2 border-borderLight rounded-lg w-full text-xl "
         type={type}
       />
-      <ErrorMessage message={errorMessage} />
+      {errorMessage && <ErrorMessage message={errorMessage} />}
     </div>
   );
 };

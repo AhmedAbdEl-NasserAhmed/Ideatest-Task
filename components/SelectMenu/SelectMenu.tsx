@@ -1,4 +1,4 @@
-import { SelectMenuProps } from "@/types/interfaces";
+import { SelectMenuProps } from "@/intefaces/interfaces";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const SelectMenu = ({

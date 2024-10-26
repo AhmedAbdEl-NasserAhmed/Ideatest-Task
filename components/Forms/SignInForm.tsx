@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import Input from "@/components/Input/Input";
 import Button from "../Button/Button";
-import { SignInFormValues } from "@/types/interfaces";
+import { SignInFormValues } from "@/intefaces/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import signInFormValidation from "@/schemas/signInFormValidation";
 
