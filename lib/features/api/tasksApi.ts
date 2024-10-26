@@ -7,16 +7,16 @@ export const tasksApi = createApi({
   tagTypes: ["Tasks"],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    addTodo: builder.mutation({
+    addTask: builder.mutation({
       query: (newPost) => ({
         url: "toDos",
         method: "POST",
         body: newPost,
         headers: {
           "Content-Type": "multipart/form-data"
-        },
-        invalidatesTags: ["Tasks"]
-      })
+        }
+      }),
+      invalidatesTags: ["Tasks"]
     }),
     getAllTasks: builder.query({
       query: () => ({
@@ -32,12 +32,20 @@ export const tasksApi = createApi({
         method: "Get"
       }),
       providesTags: ["Tasks"]
+    }),
+    deleteTask: builder.mutation({
+      query: (id) => ({
+        url: `toDos/${id}`,
+        method: "Delete"
+      }),
+      invalidatesTags: ["Tasks"]
     })
   })
 });
 
 export const {
-  useAddTodoMutation,
+  useAddTaskMutation,
   useGetAllTasksQuery,
-  useGetSingleTaskQuery
+  useGetSingleTaskQuery,
+  useDeleteTaskMutation
 } = tasksApi;

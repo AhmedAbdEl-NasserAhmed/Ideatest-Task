@@ -9,6 +9,7 @@ import SelectMenu from "../SelectMenu/SelectMenu";
 import { SignUpFormValues } from "@/intefaces/interfaces";
 import { signUpFormSelectMenuOptions } from "@/constant/constants";
 import toast from "react-hot-toast";
+import MiniSpinner from "@/ui/MiniSpinner/MiniSpinner";
 
 const SignUpForm = ({ setSignIn }) => {
   const {
@@ -90,7 +91,7 @@ const SignUpForm = ({ setSignIn }) => {
         }}
       />
       <Button disabled={response.isLoading} type="submit">
-        Sign Up
+        {response.isLoading ? <MiniSpinner /> : "Sign Up"}
       </Button>
     </form>
   );

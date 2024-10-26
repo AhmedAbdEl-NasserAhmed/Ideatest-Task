@@ -14,16 +14,17 @@ import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
 import UploadTaskImage from "../UploadTaskImage/UploadTaskImage";
 import { useGetAllEmployeesQuery } from "@/lib/features/api/emploeesApi";
-import { useAddTodoMutation } from "@/lib/features/api/tasksApi";
+import { useAddTaskMutation } from "@/lib/features/api/tasksApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import MiniSpinner from "@/ui/MiniSpinner/MiniSpinner";
 
 const AddTaskForm = () => {
   const { data } = useGetAllEmployeesQuery("Employees");
 
   const { push } = useRouter();
 
-  const [addTodo, response] = useAddTodoMutation();
+  const [addTodo, response] = useAddTaskMutation();
 
   const {
     register,
@@ -59,9 +60,9 @@ const AddTaskForm = () => {
     addTodo(formData)
       .unwrap()
       .then(() => {
-        toast.success("Task added Successfully");
-        push("/employer/alltasks");
+        toast.success("Task Added Successfully");
         reset();
+        push("/employer/alltasks");
       })
       .catch((err) => {
         toast.error(err.data.message);
@@ -116,7 +117,7 @@ const AddTaskForm = () => {
         />
 
         <Button disabled={response.isLoading} type="submit">
-          Add Task
+          {response.isLoading ? <MiniSpinner /> : "Add Task"}
         </Button>
       </div>
       <Controller

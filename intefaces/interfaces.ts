@@ -70,3 +70,10 @@ export interface UserState {
   token: string | null;
   isAuthenticated: boolean;
 }
+
+export interface DeletWindowProps {
+  message: string;
+  setShowModal?: () => void;
+  onClick?: any;
+  disabled?: boolean;
+}

@@ -26,6 +26,7 @@ export default function RootLayout({
           suppressHydrationWarning={true}
           className={`${inter.className} antialiased`}
         >
+          <div id="modal"></div>
           {children}
           <Toaster
             toastOptions={{

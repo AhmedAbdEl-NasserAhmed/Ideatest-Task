@@ -12,6 +12,7 @@ import signInFormValidation from "@/schemas/signInFormValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import Button from "../Button/Button";
+import MiniSpinner from "@/ui/MiniSpinner/MiniSpinner";
 
 const SignInForm = () => {
   const [signIn, response] = useSignInMutation();
@@ -66,7 +67,7 @@ const SignInForm = () => {
         type="password"
       />
       <Button disabled={response.isLoading} type="submit">
-        Sign In
+        {response.isLoading ? <MiniSpinner /> : "Sign In"}
       </Button>
     </form>
   );
