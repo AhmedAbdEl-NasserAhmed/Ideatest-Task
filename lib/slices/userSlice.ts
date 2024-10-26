@@ -5,7 +5,7 @@ let user = null;
 
 let token = null;
 
-if (Storage.getItem("user") !== undefined) {
+if (typeof window !== undefined) {
   user = Storage.getItem("user");
   token = Storage.getItem("token", false);
 }
