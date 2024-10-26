@@ -4,7 +4,7 @@ const addTaskFormValidation = yup.object({
   title: yup
     .string()
     .required("Title is required")
-    .min(3, "Title must be at least 3 characters long"),
+    .min(6, "Title must be at least 6 characters long"),
 
   description: yup
     .string()

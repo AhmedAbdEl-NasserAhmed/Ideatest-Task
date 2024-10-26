@@ -1,12 +1,15 @@
 "use client";
 
 import { useDebounceValue } from "@/hooks/useDebounceValue";
-import { useGetAllTasksQuery } from "@/lib/features/api/tasksApi";
+import { useGetAllTasksEmployeeQuery } from "@/lib/features/api/tasksApi";
+import { useAppSelector } from "@/lib/hooks";
 import AllTasks from "@/ui/AllTasks/AllTasks";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 const Page = () => {
   const [value, setValue] = useState<string>("");
+
+  const user = useAppSelector((state) => state.user.user);
 
   const searchParams = useSearchParams();
 
@@ -16,13 +19,12 @@ const Page = () => {
 
   const debounceValue = useDebounceValue(value);
 
-  const { data, isLoading } = useGetAllTasksQuery({
+  const { data, isLoading } = useGetAllTasksEmployeeQuery({
+    id: user?._id,
     letter: debounceValue,
     priority: priority || "",
     state: state || ""
   });
-
-  console.log(data);
 
   return (
     <div>
@@ -31,7 +33,7 @@ const Page = () => {
         value={value}
         data={data}
         isLoading={isLoading}
-        emptyMessage=" Start Adding and Assigning tasks"
+        emptyMessage="No Assigned tasks"
         setValue={setValue}
       />
     </div>

@@ -4,12 +4,15 @@ import DeleteWindow from "@/components/DeleteWindow/DeleteWindow";
 import Menus from "@/components/Menus/Menus";
 import Modal from "@/components/Modal/Modal";
 import { useDeleteTaskMutation } from "@/lib/features/api/tasksApi";
+import { useAppSelector } from "@/lib/hooks";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { HiEye, HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
 
 function TaskMenuOptions({ task }) {
   const { push } = useRouter();
+
+  const user = useAppSelector((state) => state.user.user);
 
   const [deleteTask, response] = useDeleteTaskMutation();
 
@@ -31,22 +34,36 @@ function TaskMenuOptions({ task }) {
 
         <Menus.List id={task["_id"]}>
           <Menus.Button
-            onClick={() => push(`/employer/alltasks/${task._id}`)}
+            onClick={() =>
+              push(
+                `/${
+                  user.role === "leader" ? "employer" : "employee"
+                }/alltasks/${task._id}`
+              )
+            }
             icon={<HiEye />}
           >
             View
           </Menus.Button>
 
           <Menus.Button
-            onClick={() => push(`/employer/edittask/${task._id}`)}
+            onClick={() =>
+              push(
+                `/${
+                  user.role === "leader" ? "employer" : "employee"
+                }/edittask/${task._id}`
+              )
+            }
             icon={<HiMiniPencilSquare />}
           >
             Edit
           </Menus.Button>
 
-          <Modal.Open opens="delete">
-            <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-          </Modal.Open>
+          {user?.role === "leader" && (
+            <Modal.Open opens="delete">
+              <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+            </Modal.Open>
+          )}
         </Menus.List>
 
         <Modal.Window name="delete">

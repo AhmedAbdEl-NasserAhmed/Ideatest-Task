@@ -10,7 +10,7 @@ import {
 import { AddTaskFormValues } from "@/intefaces/interfaces";
 import { useGetAllEmployeesQuery } from "@/lib/features/api/emploeesApi";
 import {
-  useAddTaskMutation,
+  useEditTaskMutation,
   useGetSingleTaskQuery
 } from "@/lib/features/api/tasksApi";
 import addTaskFormValidation from "@/schemas/addTaskFormValidation";
@@ -35,7 +35,7 @@ const EditTaskForm = () => {
 
   const { push } = useRouter();
 
-  const [addTodo, response] = useAddTaskMutation();
+  const [editTask, response] = useEditTaskMutation();
 
   console.log("singleTask", singleTask);
 
@@ -60,7 +60,7 @@ const EditTaskForm = () => {
     setValue("description", singleTask?.data.description);
     setValue("priority", singleTask?.data.priority);
     setValue("state", singleTask?.data.state);
-    setValue("assignTo", singleTask?.data.assignedTo[0].name);
+    setValue("assignTo", singleTask?.data.assignedTo[0]._id);
     setValue("image", singleTask?.data.photo.url);
   }, [singleTask?.data, setValue]);
 
@@ -85,10 +85,10 @@ const EditTaskForm = () => {
     formData.append("priority", data.priority);
     formData.append("state", data.state);
 
-    addTodo(formData)
+    editTask({ body: formData, id })
       .unwrap()
       .then(() => {
-        toast.success("Task Added Successfully");
+        toast.success("Task Edited Successfully");
         reset();
         push("/employer/alltasks");
       })

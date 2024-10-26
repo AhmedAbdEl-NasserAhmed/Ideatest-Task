@@ -19,8 +19,15 @@ export const tasksApi = createApi({
       invalidatesTags: ["Tasks"]
     }),
     getAllTasks: builder.query({
-      query: () => ({
-        url: "toDos",
+      query: ({ letter, state, priority }) => ({
+        url: `toDos?title=${letter}&state=${state}&priority=${priority}`,
+        method: "Get"
+      }),
+      providesTags: ["Tasks"]
+    }),
+    getAllTasksEmployee: builder.query({
+      query: ({ id, letter, state, priority }) => ({
+        url: `toDos/users/${id}?title=${letter}&state=${state}&priority=${priority}`,
         method: "Get"
       }),
       providesTags: ["Tasks"]
@@ -33,6 +40,19 @@ export const tasksApi = createApi({
       }),
       providesTags: ["Tasks"]
     }),
+
+    editTask: builder.mutation({
+      query: ({ body, id }) => ({
+        url: `toDos/${id}/leader`,
+        method: "Put",
+        body,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }),
+      invalidatesTags: ["Tasks"]
+    }),
+
     deleteTask: builder.mutation({
       query: (id) => ({
         url: `toDos/${id}`,
@@ -47,5 +67,7 @@ export const {
   useAddTaskMutation,
   useGetAllTasksQuery,
   useGetSingleTaskQuery,
-  useDeleteTaskMutation
+  useDeleteTaskMutation,
+  useEditTaskMutation,
+  useGetAllTasksEmployeeQuery
 } = tasksApi;

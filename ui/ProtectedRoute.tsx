@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }) => {
       if (user && user?.role === "leader") {
         push("/employer/addtask");
       } else {
-        push("/employee/addtask");
+        push("/employee/alltasks");
       }
     } else {
       push("/");

@@ -1,14 +1,14 @@
-import EmployerMainMenu from "@/ui/EmployerMainMenu";
+import EmployeeMainMenu from "@/ui/EmployeeMainMenu";
 import Nav from "@/ui/Nav";
 import ProtectedRoute from "@/ui/ProtectedRoute";
 
-const EmployerDashboardPage = ({ children }) => {
+const EmployeeDashboardPage = ({ children }) => {
   return (
     <ProtectedRoute>
       <div>
         <Nav />
         <div className="p-8 h-[calc(100vh-7rem)] flex items-center  ">
-          <EmployerMainMenu />
+          <EmployeeMainMenu />
           <div className="grow  h-full rounded-lg p-10   overflow-y-scroll">
             {children}
           </div>
@@ -18,4 +18,4 @@ const EmployerDashboardPage = ({ children }) => {
   );
 };
 
-export default EmployerDashboardPage;
+export default EmployeeDashboardPage;
