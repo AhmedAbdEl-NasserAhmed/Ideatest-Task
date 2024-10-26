@@ -1,14 +1,5 @@
-import { UseFormRegisterReturn } from "react-hook-form";
+import { SelectMenuProps } from "@/types/interfaces";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-
-interface Props {
-  name?: string;
-  register?: UseFormRegisterReturn;
-  value?: string;
-  onChange?: (e) => void;
-  errorMessage?: string;
-  disabled: boolean;
-}
 
 const SelectMenu = ({
   name,
@@ -18,7 +9,7 @@ const SelectMenu = ({
   onChange,
   errorMessage,
   disabled
-}: Props) => {
+}: SelectMenuProps) => {
   return (
     <div className="flex flex-col gap-4">
       <select

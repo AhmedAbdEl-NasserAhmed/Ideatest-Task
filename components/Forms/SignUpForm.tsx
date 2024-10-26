@@ -2,11 +2,11 @@
 import { useForm } from "react-hook-form";
 import Input from "@/components/Input/Input";
 import { useSingUpMutation } from "@/lib/features/api/loginApi";
-import signUpValidations from "@/schemas/signUpValidations";
-import { FormValues } from "@/types/signUpFormValues";
+import signUpValidations from "@/schemas/signUpFormValidations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../Button/Button";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import { SignUpFormValues } from "@/types/interfaces";
 
 const SignUpForm = () => {
   const {
@@ -14,7 +14,7 @@ const SignUpForm = () => {
     watch,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormValues>({
+  } = useForm<SignUpFormValues>({
     resolver: yupResolver(signUpValidations)
   });
 
@@ -26,7 +26,7 @@ const SignUpForm = () => {
 
   const [singUp, response] = useSingUpMutation();
 
-  function onSubmit(data: FormValues) {
+  function onSubmit(data: SignUpFormValues) {
     singUp({
       name: data.name,
       email: data.email,

@@ -1,17 +1,5 @@
-import { UseFormRegisterReturn } from "react-hook-form";
+import { InputProps } from "@/types/interfaces";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-
-interface Props {
-  name?: string;
-  type: string;
-  placeholder?: string;
-  register?: UseFormRegisterReturn;
-  value?: string;
-  label?: string;
-  onChange?: (e) => void;
-  errorMessage?: string;
-  disabled?: boolean;
-}
 
 const Input = ({
   name,
@@ -23,7 +11,7 @@ const Input = ({
   label,
   errorMessage,
   disabled
-}: Props) => {
+}: InputProps) => {
   return (
     <div className="flex flex-col gap-4">
       {label && <label className="text-xl ">{label}</label>}

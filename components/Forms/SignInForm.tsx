@@ -4,11 +4,9 @@ import { useForm } from "react-hook-form";
 
 import Input from "@/components/Input/Input";
 import Button from "../Button/Button";
-
-type FormValues = {
-  email: string;
-  password: string;
-};
+import { SignInFormValues } from "@/types/interfaces";
+import { yupResolver } from "@hookform/resolvers/yup";
+import signInFormValidation from "@/schemas/signInFormValidation";
 
 const SignInForm = () => {
   const {
@@ -16,7 +14,9 @@ const SignInForm = () => {
     watch,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormValues>();
+  } = useForm<SignInFormValues>({
+    resolver: yupResolver(signInFormValidation)
+  });
 
   const fromData = watch();
 
@@ -31,12 +31,7 @@ const SignInForm = () => {
       <Input
         errorMessage={errors["email"] && errors["email"]?.message}
         register={{
-          ...register("email", {
-            required: {
-              value: true,
-              message: "Please enter your email"
-            }
-          })
+          ...register("email")
         }}
         placeholder="example@user.com"
         type="text"
@@ -44,12 +39,7 @@ const SignInForm = () => {
       <Input
         errorMessage={errors["password"] && errors["password"]?.message}
         register={{
-          ...register("password", {
-            required: {
-              value: true,
-              message: "Please enter your password"
-            }
-          })
+          ...register("password")
         }}
         placeholder="Password"
         type="password"

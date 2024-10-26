@@ -1,7 +1,7 @@
 import { passwordRegex } from "@/utils/regex";
 import * as yup from "yup";
 
-const userValidationSchema = yup.object({
+const signUpFormValidations = yup.object({
   name: yup
     .string()
     .required("Please enter your name")
@@ -28,4 +28,4 @@ const userValidationSchema = yup.object({
   role: yup.string().required("Please select your role")
 });
 
-export default userValidationSchema;
+export default signUpFormValidations;
