@@ -51,6 +51,8 @@ const EditTaskForm = () => {
 
   const formData = watch();
 
+  console.log("formData", formData);
+
   useEffect(() => {
     setValue("title", singleTask?.data.title);
     setValue("description", singleTask?.data.description);
@@ -58,7 +60,7 @@ const EditTaskForm = () => {
     setValue("state", singleTask?.data.state);
     setValue("assignTo", singleTask?.data.assignedTo[0]._id);
     setValue("image", singleTask?.data.photo.url);
-  }, [singleTask?.data, setValue]);
+  }, [singleTask?.data]);
 
   const usersOption = data?.data.map((user) => {
     return {
@@ -99,7 +101,6 @@ const EditTaskForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex  gap-16">
       <div className="flex flex-col gap-10 basis-[60%]">
         <Input
-          defaultvalue={singleTask?.data.title}
           disabled={response.isLoading}
           errorMessage={errors["title"] && errors["title"]?.message}
           register={{
@@ -109,7 +110,6 @@ const EditTaskForm = () => {
           type="text"
         />
         <Input
-          defaultvalue={singleTask?.data.description}
           disabled={response.isLoading}
           errorMessage={errors["description"] && errors["description"]?.message}
           register={{
@@ -119,7 +119,6 @@ const EditTaskForm = () => {
           type="text"
         />
         <SelectMenu
-          value={singleTask?.data.priority}
           disabled={response.isLoading}
           options={addTaslSelectPriorityMenuOptions}
           errorMessage={errors["priority"] && errors["priority"]?.message}
@@ -128,7 +127,6 @@ const EditTaskForm = () => {
           }}
         />
         <SelectMenu
-          value={singleTask?.data.state}
           disabled={response.isLoading}
           options={addTaslSelectStateMenuOptions}
           errorMessage={errors["state"] && errors["state"]?.message}
@@ -137,7 +135,6 @@ const EditTaskForm = () => {
           }}
         />
         <SelectMenu
-          value={singleTask?.data.assignedTo[0]._id}
           disabled={response.isLoading}
           defaultOption="Please Select an employee"
           options={usersOption}
