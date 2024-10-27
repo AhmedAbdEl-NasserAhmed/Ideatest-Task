@@ -56,7 +56,7 @@ const EmployeeEditTaskForm = () => {
     setValue("priority", singleTask?.data.priority);
     setValue("state", singleTask?.data.state);
     setValue("image", singleTask?.data.photo.url);
-  }, [singleTask?.data, setValue]);
+  }, [singleTask?.data]);
 
   function onSubmit(data: AddTaskFormValues) {
     const formData = new FormData();
@@ -88,7 +88,6 @@ const EmployeeEditTaskForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex  gap-16">
       <div className="flex flex-col gap-10 basis-[60%]">
         <Input
-          defaultvalue={singleTask?.data.title}
           disabled={true}
           errorMessage={errors["title"] && errors["title"]?.message}
           register={{
@@ -98,7 +97,6 @@ const EmployeeEditTaskForm = () => {
           type="text"
         />
         <Input
-          defaultvalue={singleTask?.data.description}
           disabled={true}
           errorMessage={errors["description"] && errors["description"]?.message}
           register={{
@@ -108,7 +106,6 @@ const EmployeeEditTaskForm = () => {
           type="text"
         />
         <SelectMenu
-          value={singleTask?.data.priority}
           disabled={true}
           options={addTaslSelectPriorityMenuOptions}
           errorMessage={errors["priority"] && errors["priority"]?.message}
@@ -117,7 +114,6 @@ const EmployeeEditTaskForm = () => {
           }}
         />
         <SelectMenu
-          value={singleTask?.data.state}
           disabled={response.isLoading}
           options={addTaslSelectStateMenuOptions}
           errorMessage={errors["state"] && errors["state"]?.message}
